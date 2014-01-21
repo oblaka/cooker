@@ -22,21 +22,25 @@ class Recipe < ActiveRecord::Base
   end
 
   def produce(count)
-    @parts.each do |part|
-      part.spend(count)
-    end
+    if self.avaliable <= count
+      "Не хватает ресурсов"
+    else
+      @parts.each do |part|
+        part.spend(count)
+      end
 
-    prd = Product.find_or_initialize_by(name: @rn, description: @rd, unit: @ru)
-    pcount = count*@rq
+      prd = Product.find_or_initialize_by(name: @rn, description: @rd, unit: @ru)
+      pcount = count*@rq
 
-    if prd.persisted?
-        "есть немного"
-        prd.increase(pcount)
-      else
-        "ща попробуем!"
-        prd.quantity = pcount
+      if prd.persisted?
+          "есть немного"
+          prd.increase(pcount)
+        else
+          "ща попробуем!"
+          prd.quantity = pcount
+      end
+      p prd
     end
-    p prd
   end
 
 end
