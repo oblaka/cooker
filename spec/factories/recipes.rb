@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :recipe do
     name "Шарлотка"
     description "Пирог"
-    quantity 0,9
+    quantity 0.9
     unit "кг"
     correct false
   end

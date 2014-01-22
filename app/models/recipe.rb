@@ -3,34 +3,26 @@ class Recipe < ActiveRecord::Base
   has_many :parts
   has_many :products, through: :parts
 
-  after_find do |r|
-    @parts = r.parts
-    @rn = r.name
-    @rd = r.description
-    @ru = r.unit
-    @rq = r.quantity
-  end
-
   def avaliable
     pa = []
-    @parts.each do |p|
+    self.parts.each do |p|
       a = p.avaliable
       pa.push a
     end
-    p pa
     pa.min.to_i
   end
 
   def produce(count)
-    if self.avaliable <= count
-      "Не хватает ресурсов"
+    if self.avaliable < count
+      raise "Не хватает ресурсов"
     else
-      @parts.each do |part|
+      parts = self.parts
+      parts.each do |part|
         part.spend(count)
       end
 
-      prd = Product.find_or_initialize_by(name: @rn, description: @rd, unit: @ru)
-      pcount = count*@rq
+      prd = Product.find_or_initialize_by(name: self.name, description: self.description, unit: self.unit)
+      pcount = count*self.quantity
 
       if prd.persisted?
           "есть немного"
@@ -38,8 +30,8 @@ class Recipe < ActiveRecord::Base
         else
           "ща попробуем!"
           prd.quantity = pcount
+          prd.save
       end
-      p prd
     end
   end
 

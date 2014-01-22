@@ -25,13 +25,4 @@ describe Part do
     expect(part.avaliable).to eq(0.5)
   end
 
-  it "counts part spend" do
-    part = create(:part, quantity: 4)
-
-    expect(part.quantity).to eq(4)
-  end
-
-
-
-
 end
