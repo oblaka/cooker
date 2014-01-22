@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :product do
-    name "MyString"
-    description "MyText"
+    sequence(:name)  { |i| "Product#{i}" }
+    description "Bla-bla-bla"
     quantity 1.5
-    unit "MyString"
+    unit "kg"
   end
 end

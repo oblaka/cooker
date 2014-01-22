@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :part do
+    association(:recipe)
+    association(:product, id: 1)
     quantity 1.5
-    recipe nil
-    product nil
     positive false
   end
 end

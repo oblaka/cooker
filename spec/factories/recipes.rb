@@ -2,10 +2,10 @@
 
 FactoryGirl.define do
   factory :recipe do
-    name "MyString"
-    description "MyText"
-    quantity 1.5
-    unit "MyString"
+    name "Шарлотка"
+    description "Пирог"
+    quantity 0,9
+    unit "кг"
     correct false
   end
 end

@@ -3,23 +3,21 @@ class Part < ActiveRecord::Base
   belongs_to :recipe
   belongs_to :product
 
-  after_find do |part|
-    @product = self.product
-    @pq = product.quantity
-    @sq = self.quantity
-  end
-
   def name
-    @product.name
+    product = self.product
+    product.name
   end
 
   def avaliable
-    a = @pq / @sq
+    product = self.product
+    product.quantity / self.quantity
   end
 
   def spend(count)
-    scount = @sq * count
-    @product.decrease(scount)
+    scount = self.quantity * count
+    product = self.product
+    product.decrease(scount)
+    scount
   end
 
 
