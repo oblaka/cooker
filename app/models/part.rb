@@ -3,6 +3,9 @@ class Part < ActiveRecord::Base
   belongs_to :recipe
   belongs_to :product
 
+  validates :quantity, numericality: { greater_than_or_equal_to: 0 }
+  validates_associated :product
+
   def name
     product = self.product
     product.name
@@ -17,7 +20,6 @@ class Part < ActiveRecord::Base
     scount = self.quantity * count
     product = self.product
     product.decrease(scount)
-    scount
   end
 
 
