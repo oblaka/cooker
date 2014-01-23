@@ -8,7 +8,6 @@ class Product < ActiveRecord::Base
   validates :quantity, numericality: { greater_than_or_equal_to: 0 }
   validates :unit, lenght: { in: 2..10 }
 
-
   def increase(count)
     self.quantity += count
     self.update(quantity: self.quantity)
