@@ -3,10 +3,10 @@ class Recipe < ActiveRecord::Base
   has_many :parts
   has_many :products, through: :parts
 
-  validates :name, length: { in: 4..20 }
+  validates :name, length: { in: 4..20 }, presence: true
   validates :description, length: { in: 4..255 }
-  validates :quantity, numericality: { greater_than_or_equal_to: 0 }
-  validates :unit, length: { in: 2..10 }
+  validates :quantity, numericality: { greater_than_or_equal_to: 0 }, presence: true
+  validates :unit, length: { in: 2..10 }, presence: true
 
   def avaliable
     pa = []
