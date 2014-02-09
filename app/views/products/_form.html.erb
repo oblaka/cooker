@@ -1,0 +1,12 @@
+<%= bootstrap_form_for(@product) do |f| %>
+
+
+  <%= f.text_field :name %>
+  <%= f.text_field :quantity %>
+  <%= f.text_field :unit %>
+  <%= f.text_field :description %>
+
+  <%= f.submit "Save Product", class: "btn btn-success" %>
+
+<% end %>
+  <br>

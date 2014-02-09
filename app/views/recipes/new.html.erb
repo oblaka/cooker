@@ -1,0 +1,13 @@
+<h1>New recipe</h1>
+
+  <div class="col-md-6">
+    <%= render 'form' %>
+
+    <%= link_to 'Back to recipes', recipes_path, class: 'btn btn-large btn-primary', method: :get %>
+  </div>
+
+  <div class="col-md-6">
+    <p class="text-info">
+      <%= 'Создайте новый рецепт, заполнив все поля слева.' %>
+    </p>
+  </div>
