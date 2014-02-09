@@ -7,6 +7,8 @@ Cooker::Application.routes.draw do
       post :decrease, on: :member
     end
 
+    resources :recipes
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
