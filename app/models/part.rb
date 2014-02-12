@@ -11,6 +11,11 @@ class Part < ActiveRecord::Base
     product.name
   end
 
+  def recipe_name
+    recipe = self.recipe
+    recipe.name
+  end
+
   def avaliable
     self.reload
     product = self.product

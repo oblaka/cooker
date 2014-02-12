@@ -1,12 +1,12 @@
-<h1>Listing parts</h1>
+<h1>Ингридиенты</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>id</th>
       <th>Название</th>
       <th>Количество</th>
-      <th>Создан</th>
+      <th>Рецепт</th>
     </tr>
   </thead>
 
@@ -16,7 +16,7 @@
         <td><%= link_to part.id, part_path(part) %></td>
         <td><%= part.name %></td>
         <td><%= part.quantity %></td>
-        <td><%=l part.created_at %></td>
+        <td><%= part.recipe_name %></td>
         <td>....</td>
            <td><%= link_to 'Show', part, class: 'btn btn-info btn-xs' %></td>
         <td><%= link_to 'Edit', edit_part_path(part), class: 'btn btn-primary btn-xs' %></td>
