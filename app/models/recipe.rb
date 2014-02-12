@@ -9,10 +9,12 @@ class Recipe < ActiveRecord::Base
   validates :unit, length: { in: 2..10 }, presence: true
 
   def avaliable
+    self.reload
     pa = []
     self.parts.each do |p|
       a = p.avaliable
       pa.push a
+      p pa
     end
     pa.min.to_i
   end
@@ -30,7 +32,7 @@ class Recipe < ActiveRecord::Base
       pcount = count*self.quantity
 
       if prd.persisted?
-          "есть немного"
+          p "есть немного"
           prd.increase(pcount)
         else
           "ща попробуем!"

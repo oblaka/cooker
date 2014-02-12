@@ -1,12 +1,12 @@
+<br>
 <%= bootstrap_form_for(@product) do |f| %>
 
+  <%= f.text_field :name, label: "Название" %>
+  <%= f.text_field :quantity, label: "Количество" %>
+  <%= f.text_field :unit, label: "Измеряется в" %>
+  <%= f.text_area :description, label: "Описание" %>
 
-  <%= f.text_field :name %>
-  <%= f.text_field :quantity %>
-  <%= f.text_field :unit %>
-  <%= f.text_field :description %>
-
-  <%= f.submit "Save Product", class: "btn btn-success" %>
+  <%= f.submit "Сохранить", class: "btn btn-success" %>
 
 <% end %>
-  <br>
+<br>

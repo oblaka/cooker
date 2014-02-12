@@ -12,8 +12,9 @@ class Part < ActiveRecord::Base
   end
 
   def avaliable
+    self.reload
     product = self.product
-    product.quantity / self.quantity
+    product.quantity.to_f / self.quantity.to_f
   end
 
   def spend(count)
