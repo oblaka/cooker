@@ -1,0 +1,10 @@
+<%= bootstrap_form_for(@part) do |f| %>
+
+
+    <%= f.text_field :quantity %>
+    <%= f.text_field :recipe_id %>
+    <%= f.text_field :product_id %>
+
+    <%= f.submit "Save Product", class: "btn btn-success" %>
+
+<% end %>
