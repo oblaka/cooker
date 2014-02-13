@@ -9,6 +9,7 @@ Cooker::Application.routes.draw do
     resources :parts
 
     resources :recipes do
+      post :produce, on: :member
     end
 
   # You can have the root of your site routed with "root"

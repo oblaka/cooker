@@ -1,0 +1,6 @@
+<%= form_tag produce_recipe_path, method: :post, class: "form-inline"  do %>
+  <div class="form-group">
+    <%= text_field_tag :count %>
+    <%= submit_tag "Приготовить", class: "btn btn-success btn-sm" %>
+  </div>
+<% end %>

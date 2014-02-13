@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :set_recipe, only: [:show, :edit, :update, :destroy, :produce]
 
   # GET /recipes
   # GET /recipes.json
@@ -11,6 +11,12 @@ class RecipesController < ApplicationController
   # GET /recipes/1.json
   def show
     @parts = @recipe.parts
+  end
+
+  def produce
+    count = recipe_count[:count].to_i
+    @recipe.produce(count)
+    redirect_to recipe_path(@recipe)
   end
 
   # GET /recipes/new
@@ -65,11 +71,16 @@ class RecipesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_recipe
-      @recipe = Recipe.find(params[:id])
+      @recipe = Recipe.where(id: params[:id]).first
+      render_404 unless @recipe
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
-      params.require(:recipe).permit(:name, :description, :quantity, :unit, parts: [ :product_id, :quantity])
+      params.require(:recipe).permit(:name, :description, :quantity, :unit, parts: [ :product_id, :quantity] )
+    end
+
+    def recipe_count
+      params.permit :utf8, :_method, :authenticity_token, :commit, :id, :count
     end
 end

@@ -14,8 +14,8 @@
   <tbody>
     <% @recipes.each do |recipe| %>
       <tr>
-        <td><%= link_to recipe.id, recipe_path(recipe) %></td>
-        <td><%= recipe.name %></td>
+        <td><%= recipe.id %></td>
+        <td><%= link_to recipe.name, recipe_path(recipe) %></td>
         <td><%= recipe.quantity %></td>
         <td><%= recipe.unit %></td>
         <td><%=l recipe.created_at %></td>
