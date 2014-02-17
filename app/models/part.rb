@@ -11,6 +11,11 @@ class Part < ActiveRecord::Base
     product.name
   end
 
+  def unit
+    product = self.product
+    product.unit
+  end
+
   def recipe_name
     recipe = self.recipe
     recipe.name
@@ -19,13 +24,13 @@ class Part < ActiveRecord::Base
   def avaliable
     self.reload
     product = self.product
-    product.quantity.to_f / self.quantity.to_f
+    product.quantity / self.quantity
   end
 
   def spend(count)
     scount = self.quantity * count
     product = self.product
-    product.decrease(scount)
+    product.decrease(scount.to_i)
   end
 
 

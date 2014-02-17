@@ -25,7 +25,7 @@ class Recipe < ActiveRecord::Base
     else
       parts = self.parts
       parts.each do |part|
-        part.spend(count)
+        part.spend(count.to_i)
       end
 
       prd = Product.find_or_initialize_by(name: self.name, description: self.description, unit: self.unit)

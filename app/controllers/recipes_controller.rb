@@ -24,8 +24,13 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new
   end
 
+  def parts
+    @parts = @recipe.parts
+  end
+
   # GET /recipes/1/edit
   def edit
+    @parts = @recipe.parts
   end
 
   # POST /recipes

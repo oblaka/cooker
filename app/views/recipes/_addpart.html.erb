@@ -1,0 +1,10 @@
+<h2>Add a part:</h2>
+<%= bootstrap_form_for([@recipe, @recipe.parts.build]) do |f| %>
+
+    <%= f.text_field :quantity %>
+
+    <%= f.collection_select :product_id, Product.all, :id, :name %>
+
+    <%= f.submit "Save Part" %>
+
+<% end %>

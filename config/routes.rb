@@ -6,9 +6,9 @@ Cooker::Application.routes.draw do
       post :increase, on: :member
       post :decrease, on: :member
     end
-    resources :parts
 
     resources :recipes do
+      resources :parts
       post :produce, on: :member
     end
 

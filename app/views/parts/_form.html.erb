@@ -3,8 +3,9 @@
 
     <%= f.text_field :quantity %>
     <%= f.text_field :recipe_id %>
-    <%= f.text_field :product_id %>
 
-    <%= f.submit "Save Product", class: "btn btn-success" %>
+    <%= f.collection_select :product_id, Product.all, :id, :name %>
+
+    <%= f.submit "Save Part", class: "btn btn-success" %>
 
 <% end %>

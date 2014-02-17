@@ -19,16 +19,18 @@ class PartsController < ApplicationController
 
   # GET /parts/1/edit
   def edit
+    @recipe = @part.recipe
   end
 
   # POST /parts
   # POST /parts.json
   def create
-    @part = Part.new(part_params)
+    @recipe = Recipe.find(params[:recipe_id])
+    @part = @recipe.parts.create(params[:part].permit(:quantity, :product_id))
 
     respond_to do |format|
       if @part.save
-        format.html { redirect_to @part, notice: 'Part was successfully created.' }
+        format.html { redirect_to recipe_path(@recipe), notice: 'Part was successfully created.' }
         format.json { render action: 'show', status: :created, location: @part }
       else
         format.html { render action: 'new' }
@@ -40,9 +42,11 @@ class PartsController < ApplicationController
   # PATCH/PUT /parts/1
   # PATCH/PUT /parts/1.json
   def update
+    @recipe = Recipe.find(params[:recipe_id])
+    @part = @recipe.parts.find(params[:id])
     respond_to do |format|
       if @part.update(part_params)
-        format.html { redirect_to @part, notice: 'Part was successfully updated.' }
+        format.html { redirect_to recipe_path(@recipe), notice: 'Part was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -54,9 +58,11 @@ class PartsController < ApplicationController
   # DELETE /parts/1
   # DELETE /parts/1.json
   def destroy
+    @recipe = Recipe.find(params[:recipe_id])
+    @part = @recipe.parts.find(params[:id])
     @part.destroy
     respond_to do |format|
-      format.html { redirect_to parts_url }
+      format.html { redirect_to recipe_path(@recipe) }
       format.json { head :no_content }
     end
   end

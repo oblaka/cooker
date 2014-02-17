@@ -1,6 +1,30 @@
-<h1>Editing recipe</h1>
+<div class='col-md-6'>
+  <h1>Editing recipe</h1>
 
-<%= render 'form' %>
+  <%= render 'form' %>
 
-<%= link_to 'Show', @recipe %> |
-<%= link_to 'Back', recipes_path %>
+  <%= link_to 'Show', @recipe %> |
+  <%= link_to 'Back', recipes_path %>
+</div>
+
+<div class='col-md-6'>
+  <br>
+  <br>
+  <br>
+  <h3>Ингридиенты</h3>
+
+  <table class="table table-hover">
+    <% @parts.each do |part| %>
+      <tr>
+        <td><%= part.name %></td>
+        <td><%= part.quantity %></td>
+        <td><%= part.product.unit %></td>
+        <td><%= link_to 'Edit', edit_recipe_part_path(part.recipe, part), class: 'btn btn-primary btn-xs' %></td>
+        <td><%= link_to 'Destroy', recipe_part_path(part.recipe, part), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= render 'addpart' %>
+
+</div>
