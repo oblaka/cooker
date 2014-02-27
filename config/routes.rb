@@ -8,9 +8,11 @@ Cooker::Application.routes.draw do
     end
 
     resources :recipes do
-      resources :parts
+      resources :parts, only: [:new, :create]
       post :produce, on: :member
     end
+
+    resources :parts, only: [:show, :edit, :update, :destroy]
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

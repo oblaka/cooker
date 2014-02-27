@@ -30,7 +30,7 @@ class Part < ActiveRecord::Base
   def spend(count)
     scount = self.quantity * count
     product = self.product
-    product.decrease(scount.to_i)
+    product.decrease(scount)
   end
 
 

@@ -10,12 +10,12 @@ class Product < ActiveRecord::Base
 
   def increase(count)
     self.quantity += count
-    self.update(quantity: self.quantity)
+    self.update(quantity: self.quantity.round(2))
   end
 
   def decrease(count)
     self.quantity -= count
-    self.update(quantity: self.quantity)
+    self.update(quantity: self.quantity.round(2))
   end
 
 end

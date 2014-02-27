@@ -10,6 +10,7 @@ class PartsController < ApplicationController
   # GET /parts/1
   # GET /parts/1.json
   def show
+    @recipe = @part.recipe
   end
 
   # GET /parts/new
@@ -42,14 +43,13 @@ class PartsController < ApplicationController
   # PATCH/PUT /parts/1
   # PATCH/PUT /parts/1.json
   def update
-    @recipe = Recipe.find(params[:recipe_id])
-    @part = @recipe.parts.find(params[:id])
+    @recipe = @part.recipe
     respond_to do |format|
       if @part.update(part_params)
         format.html { redirect_to recipe_path(@recipe), notice: 'Part was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
+        format.html { render controller: 'recipes', action: 'edit' }
         format.json { render json: @part.errors, status: :unprocessable_entity }
       end
     end
@@ -58,8 +58,7 @@ class PartsController < ApplicationController
   # DELETE /parts/1
   # DELETE /parts/1.json
   def destroy
-    @recipe = Recipe.find(params[:recipe_id])
-    @part = @recipe.parts.find(params[:id])
+    @recipe = @part.recipe
     @part.destroy
     respond_to do |format|
       format.html { redirect_to recipe_path(@recipe) }

@@ -1,11 +1,9 @@
-<%= bootstrap_form_for(@part) do |f| %>
-
+<%= bootstrap_form_for([@recipe, @recipe.parts.build]) do |f| %>
 
     <%= f.text_field :quantity %>
-    <%= f.text_field :recipe_id %>
 
     <%= f.collection_select :product_id, Product.all, :id, :name %>
 
-    <%= f.submit "Save Part", class: "btn btn-success" %>
+    <%= f.submit "Save Part" %>
 
 <% end %>

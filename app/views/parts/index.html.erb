@@ -19,8 +19,8 @@
           <td><%= part.quantity %></td>
           <td><%= part.unit %></td>
           <td><%= part.recipe_name %></td>
-          <td><%= link_to 'Edit', edit_recipe_part_path(part.recipe, part), class: 'btn btn-primary btn-xs' %></td>
-          <td><%= link_to 'Destroy', recipe_part_path(part.recipe, part), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' %></td>
+          <td><%= link_to 'Edit', edit_part_path(part.recipe, part), class: 'btn btn-primary btn-xs' %></td>
+          <td><%= link_to 'Destroy', part_path(part.recipe, part), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' %></td>
         </tr>
       <% end %>
     </tbody>
