@@ -5,6 +5,8 @@ Cooker::Application.routes.draw do
 
     root 'recipes#index'
 
+    resources :items
+
     resources :products do
       post :increase, on: :member
       post :decrease, on: :member
