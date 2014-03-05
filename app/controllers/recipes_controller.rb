@@ -1,6 +1,5 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy, :produce]
-  before_action :set_user
 
   # GET /recipes
   # GET /recipes.json
@@ -79,10 +78,6 @@ class RecipesController < ApplicationController
     def set_recipe
       @recipe = Recipe.where(id: params[:id]).first
       render_404 unless @recipe
-    end
-
-    def set_user
-      @user = current_user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

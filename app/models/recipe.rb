@@ -8,11 +8,11 @@ class Recipe < ActiveRecord::Base
   validates :quantity, numericality: { greater_than_or_equal_to: 0 }, presence: true
   validates :unit, length: { in: 2..10 }, presence: true
 
-  def avaliable(@user)
+  def avaliable
     self.reload
     pa = []
     self.parts.each do |p|
-      a = p.avaliable(@user)
+      a = p.avaliable
       pa.push a
       p pa
     end
