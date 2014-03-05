@@ -2,6 +2,8 @@ class Product < ActiveRecord::Base
 
   has_many :parts
   has_many :recipes, through: :parts
+  has_many :items
+  has_many :users, through: :items
 
   validates :name, length: { in: 4..20 }, presence: true
   validates :description, length: { in: 4..255 }
