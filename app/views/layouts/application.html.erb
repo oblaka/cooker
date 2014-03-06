@@ -55,13 +55,8 @@
               <div class="col-md-4">
                 <br>
                 <div class="well well-lg">
-                  <% if user_signed_in? %>
-                    <p>Здравствуйте, <%= current_user.email %></p>
-                    <p>ID юзера: <%= current_user.id %></p>
-                    <%= link_to 'Выйти', destroy_user_session_path, :method => :delete %>
-                  <% else %>
-                      <%= link_to 'Войти', new_user_session_path %> или <%= link_to 'Зарегистрироваться', new_user_registration_path %>
-                  <% end %>
+                  <%= render 'shared/devise' %>
+                  <%= render 'shared/testing' %>
                 </div>
               </div>
             </div>

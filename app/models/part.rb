@@ -21,10 +21,11 @@ class Part < ActiveRecord::Base
     recipe.name
   end
 
-  def avaliable
+  def avaliable(uid)
+    user = User.find_by id: uid
     self.reload
-    product = self.product
-    product.quantity / self.quantity
+    item = user.items.where(product_id: self.product.id).first
+    item.quantity / self.quantity
   end
 
   def spend(count)
