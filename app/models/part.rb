@@ -21,16 +21,22 @@ class Part < ActiveRecord::Base
     recipe.name
   end
 
-  def avaliable
+  def avaliable(uid)
+    user = User.find_by id: uid
     self.reload
-    product = self.product
-    product.quantity / self.quantity
+    item = user.items.where(product_id: self.product.id).first
+    if item.nil?
+      0
+    else
+      item.quantity / self.quantity
+    end
   end
 
-  def spend(count)
+  def spend(uid, count)
+    user = User.find_by id: uid
+    item = user.items.where(product_id: self.product.id).first
     scount = self.quantity * count
-    product = self.product
-    product.decrease(scount)
+    item.decrease(scount)
   end
 
 

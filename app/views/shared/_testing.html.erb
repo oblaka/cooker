@@ -1,0 +1,8 @@
+<br>
+
+<%= current_user %>
+<br>
+<% current_user.items.each do |item| %>
+  <p><%= item.id %></p>
+  <p><%= item.name %></p>
+<% end %>

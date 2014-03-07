@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy, :produce]
+  before_action :set_uid, only: [:show, :edit, :update, :destroy, :produce]
 
   # GET /recipes
   # GET /recipes.json
@@ -11,12 +12,19 @@ class RecipesController < ApplicationController
   # GET /recipes/1.json
   def show
     @parts = @recipe.parts
+    @avaliable = @recipe.avaliable(current_user.id)
   end
 
   def produce
     count = recipe_count[:count].to_i
-    @recipe.produce(count)
-    redirect_to recipe_path(@recipe)
+    unless @recipe.avaliable(@uid) < count.to_i
+      @recipe.produce(current_user.id, count)
+      flash[:notice] = "Успешно приготовлено!"
+      redirect_to recipe_path(@recipe)
+    else
+      flash[:notice] = "Требуется больше продуктов!"
+      redirect_to recipe_path(@recipe)
+    end
   end
 
   # GET /recipes/new
@@ -78,6 +86,10 @@ class RecipesController < ApplicationController
     def set_recipe
       @recipe = Recipe.where(id: params[:id]).first
       render_404 unless @recipe
+    end
+
+    def set_uid
+      @uid = current_user.id
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
