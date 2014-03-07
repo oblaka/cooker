@@ -4,7 +4,11 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = current_user.items
+    unless current_user.nil?
+      @items = current_user.items
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   # GET /items/1
