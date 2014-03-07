@@ -17,8 +17,14 @@ class RecipesController < ApplicationController
 
   def produce
     count = recipe_count[:count].to_i
-    @recipe.produce(count)
-    redirect_to recipe_path(@recipe)
+    unless @recipe.avaliable(@uid) < count.to_i
+      @recipe.produce(current_user.id, count)
+      flash[:notice] = "Успешно приготовлено!"
+      redirect_to recipe_path(@recipe)
+    else
+      flash[:notice] = "Требуется больше продуктов!"
+      redirect_to recipe_path(@recipe)
+    end
   end
 
   # GET /recipes/new

@@ -19,26 +19,30 @@ class Recipe < ActiveRecord::Base
     pa.min.to_i
   end
 
-  def produce(count)
-    if self.avaliable < count
-      raise "Не хватает ресурсов"
-    else
-      parts = self.parts
-      parts.each do |part|
-        part.spend(count.to_i)
-      end
+  def produce(uid, count)
+    parts = self.parts
+    parts.each do |part|
+      part.spend(uid, count.to_i)
+    end
 
-      prd = Product.find_or_initialize_by(name: self.name, description: self.description, unit: self.unit)
-      pcount = count*self.quantity
+    prd = Product.find_or_initialize_by(name: self.name, description: self.description, unit: self.unit)
+    pcount = count*self.quantity
 
-      if prd.persisted?
-          p "есть немного"
-          prd.increase(pcount)
-        else
-          "ща попробуем!"
-          prd.quantity = pcount
-          prd.save
-      end
+    unless prd.persisted?
+      prd.quantity = self.quantity
+      prd.generated = true
+      prd.save
+    end
+
+    item = Item.find_or_initialize_by(user_id: uid, product_id: prd.id)
+
+    if item.persisted?
+        p "есть немного"
+        item.increase(pcount)
+      else
+        "ща попробуем!"
+        item.quantity = pcount
+        item.save
     end
   end
 

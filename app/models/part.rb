@@ -25,13 +25,18 @@ class Part < ActiveRecord::Base
     user = User.find_by id: uid
     self.reload
     item = user.items.where(product_id: self.product.id).first
-    item.quantity / self.quantity
+    if item.nil?
+      0
+    else
+      item.quantity / self.quantity
+    end
   end
 
-  def spend(count)
+  def spend(uid, count)
+    user = User.find_by id: uid
+    item = user.items.where(product_id: self.product.id).first
     scount = self.quantity * count
-    product = self.product
-    product.decrease(scount)
+    item.decrease(scount)
   end
 
 
