@@ -5,7 +5,10 @@ Cooker::Application.routes.draw do
 
     root 'recipes#index'
 
-    resources :items
+    resources :items do
+      post :increase, on: :member
+      post :decrease, on: :member
+    end
 
     resources :products do
       post :increase, on: :member

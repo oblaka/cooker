@@ -48,10 +48,11 @@
 
       <!-- Begin page content -->
       <div class="container">
-          <p class="bg-info"><%= notice %></p>
-          <p class="bg-warning"><%= alert %></p>
             <div class="row">
-              <div class="col-md-8"><%= yield %></div>
+              <div class="col-md-8">
+                <p><%= flash_messages %></p>
+                <%= yield %>
+              </div>
               <div class="col-md-4">
                 <br>
                 <div class="well well-lg">

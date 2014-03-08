@@ -5,6 +5,11 @@ class Item < ActiveRecord::Base
   validates :quantity, numericality: { greater_than_or_equal_to: 0 }, presence: true
   validates_associated :product
 
+  def description
+    product = self.product
+    product.description
+  end
+
   def name
     product = self.product
     product.name

@@ -1,7 +1,5 @@
 <div class='col-md-6'>
 
-<p id="notice"><%= notice %></p>
-
 <h2><%= @recipe.name %></h2>
 
   <p><%= @recipe.description %></p>
@@ -18,6 +16,7 @@
       <td><%= part.name %></td>
       <td><%= part.quantity %></td>
       <td><%= part.product.unit %></td>
+      <td><%= 'Не хватает!' if part.avaliable(current_user.id) < 1 %></td>
     </tr>
   <% end %>
 </table>

@@ -7,13 +7,25 @@ class ItemsController < ApplicationController
     unless current_user.nil?
       @items = current_user.items
     else
-      redirect_to new_user_session_path
+      redirect_to new_user_session_path, alert: "Необходимо войти в систему, чтобы посмотреть Items"
     end
   end
 
   # GET /items/1
   # GET /items/1.json
   def show
+  end
+
+  def increase
+    count = item_count[:count].to_i
+    @item.increase(count)
+    redirect_to item_path(@item)
+  end
+
+  def decrease
+    count = item_count[:count].to_i
+    @item.decrease(count)
+    redirect_to item_path(@item)
   end
 
   # GET /items/new
@@ -32,7 +44,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
-        format.html { redirect_to @item, notice: 'Item was successfully created.' }
+        format.html { redirect_to @item, success: 'Item was successfully created.' }
         format.json { render action: 'show', status: :created, location: @item }
       else
         format.html { render action: 'new' }
@@ -46,10 +58,10 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
-        format.html { redirect_to @item, notice: 'Item was successfully updated.' }
+        format.html { redirect_to @item, success: 'Item was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
+        format.html { render action: 'edit', notice: 'Попробуйте еще раз.' }
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
     end
@@ -75,4 +87,9 @@ class ItemsController < ApplicationController
     def item_params
       params.require(:item).permit(:quantity, :product_id)
     end
+
+    def item_count
+      params.permit(:count)
+    end
+
 end

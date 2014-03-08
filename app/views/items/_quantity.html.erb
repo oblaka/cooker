@@ -1,0 +1,21 @@
+<%= form_tag increase_item_path, method: :post, class: "form-inline"  do %>
+  <div class="form-group">
+    <%= text_field_tag :count %>
+    <%= @item.unit %>
+    <%= submit_tag "Добавить", class: "btn btn-success btn-sm" %>
+  </div>
+<% end %>
+
+<br>
+
+<%= form_tag decrease_item_path, method: :post, :class => "form-inline"  do %>
+  <div class="form-group">
+    <%= text_field_tag :count %>
+    <%= @item.unit %>
+    <%= submit_tag "Убавить", class: "btn btn-warning btn-sm" %>
+  </div>
+<% end %>
+
+<br>
+
+<td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' %></td>
