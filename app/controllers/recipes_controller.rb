@@ -89,7 +89,11 @@ class RecipesController < ApplicationController
     end
 
     def set_uid
-      @uid = current_user.id
+      unless current_user.nil?
+        @uid = current_user.id
+      else
+        redirect_to new_user_session_path, alert: "Необходимо войти в систему, чтобы посмотреть узнать подробности"
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
