@@ -14,6 +14,7 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
+
   end
 
   def increase
@@ -40,17 +41,13 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
+    @product = Product.find(params[:product_id])
     @item = current_user.items.new(item_params)
-
-    respond_to do |format|
       if @item.save
-        format.html { redirect_to @item, success: 'Item was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @item }
+        redirect_to @product, success: 'Item was successfully created.'
       else
-        format.html { render action: 'new' }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
+        redirect_to @product, alert: 'Все проебал'
       end
-    end
   end
 
   # PATCH/PUT /items/1

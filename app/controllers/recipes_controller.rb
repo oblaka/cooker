@@ -12,7 +12,7 @@ class RecipesController < ApplicationController
   # GET /recipes/1.json
   def show
     @parts = @recipe.parts
-    @avaliable = @recipe.avaliable(current_user.id)
+    @avaliable = @recipe.avaliable(@uid)
   end
 
   def produce

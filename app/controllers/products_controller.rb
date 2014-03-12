@@ -5,23 +5,29 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     @products = Product.all
+    unless current_user.nil?
+      if current_user.admin?
+        render 'products/admin/index'
+      else
+        render 'products/user/index'
+      end
+    else
+      render 'index'
+    end
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
-  end
-
-  def increase
-    count = product_count[:count].to_i
-    @product.increase(count)
-    redirect_to product_path(@product)
-  end
-
-  def decrease
-    count = product_count[:count].to_i
-    @product.decrease(count)
-    redirect_to product_path(@product)
+    unless current_user.nil?     
+      if current_user.admin?
+        render 'products/admin/show'
+      else
+        render 'products/user/show'
+      end
+    else
+      render 'show'
+    end
   end
 
   # GET /products/new
@@ -37,7 +43,6 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.new(product_params)
-
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }

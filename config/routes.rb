@@ -13,6 +13,7 @@ Cooker::Application.routes.draw do
     end
 
     resources :products do
+      resources :items
       post :increase, on: :member
       post :decrease, on: :member
     end
