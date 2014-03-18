@@ -14,7 +14,7 @@ Cooker::Application.routes.draw do
 
     resources :products do
       resources :items
-      post :increase, on: :member
+      patch :increase, on: :member
       post :decrease, on: :member
     end
 

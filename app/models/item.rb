@@ -3,7 +3,8 @@ class Item < ActiveRecord::Base
   belongs_to :product
 
   validates :quantity, numericality: { greater_than_or_equal_to: 0 }, presence: true
-  validates_associated :product
+
+  scope :owned, -> { where(user_id: User.current.id) }
 
   def description
     product = self.product

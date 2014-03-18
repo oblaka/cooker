@@ -17,9 +17,8 @@ class Product < ActiveRecord::Base
   end
 
   def increase(count)
-    item = Item.find_or_initialize_by(user_id: uid, product_id: prd.id)
-    self.quantity += count
-    self.update(quantity: self.quantity.round(2))
+    quantity = self.quantity += count
+    self.update(quantity: quantity.round(2))
   end
 
   def decrease(count)

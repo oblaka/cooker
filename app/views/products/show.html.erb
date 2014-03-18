@@ -1,3 +1,4 @@
+<div class='col-md-6'>
 <p id="notice"><%= notice %></p>
 
 <h2><%= @product.name %></h2>
@@ -7,10 +8,17 @@
   <li><%= @product.description %></li>
 </ul>
 
-<% if signed_in? %>
-  <%= render 'additem' %>
-<% end %>
+  <% if signed_in? %>
+    <% unless @item.nil? %>
+      <%= render 'quantity' %>
+    <% else %>
+      <%= render 'additem' %>
+    <% end %>
+  <% end %>
 
-<%= link_to 'Back to products', products_path, class: 'btn btn-large btn-info', method: :get %>
- |
- <%= link_to 'Edit', edit_product_path(@product), class: 'btn btn-large btn-warning' %>
+<p>
+  <%= link_to 'Back to products', products_path, class: 'btn btn-large btn-info', method: :get %>
+   |
+   <%= link_to 'Edit', edit_product_path(@product), class: 'btn btn-large btn-warning' %>
+ </p>
+ </div>

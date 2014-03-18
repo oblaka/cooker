@@ -1,15 +1,16 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy, :increase, :decrease]
+  before_filter :set_current_user
 
   # GET /products
   # GET /products.json
   def index
     @products = Product.all
-    unless current_user.nil?
+    if signed_in?
       if current_user.admin?
         render 'products/admin/index'
       else
-        render 'products/user/index'
+        render 'products/index'
       end
     else
       render 'index'
@@ -19,15 +20,21 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
-    unless current_user.nil?     
-      if current_user.admin?
-        render 'products/admin/show'
-      else
-        render 'products/user/show'
-      end
-    else
-      render 'show'
+    if signed_in?
+      @item = @product.items.owned.first
+        if @item.nil?
+          @quantity =  @product.name + ' пора купить, хотя бы несколько '
+        else
+          @quantity = @item.quantity
+        end
     end
+  end
+
+  def increase
+    @item = @product.items.owned.first
+    count = product_count[:count].to_i
+    @item.increase(count)
+    redirect_to @product
   end
 
   # GET /products/new
@@ -91,7 +98,7 @@ class ProductsController < ApplicationController
     end
 
     def product_count
-      params.permit(:count)
+      params.require(:product).permit(:product_id, :items => [:count])
     end
 
 end
