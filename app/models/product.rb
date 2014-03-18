@@ -10,7 +10,14 @@ class Product < ActiveRecord::Base
   validates :quantity, numericality: { greater_than_or_equal_to: 0 }, presence: true
   validates :unit, length: { in: 2..10 }, presence: true
 
+  def item_increase(uid, count)
+    item = Item.find_or_initialize_by(user_id: uid, product_id: prd.id)
+    self.quantity += count
+    self.update(quantity: self.quantity.round(2))
+  end
+
   def increase(count)
+    item = Item.find_or_initialize_by(user_id: uid, product_id: prd.id)
     self.quantity += count
     self.update(quantity: self.quantity.round(2))
   end

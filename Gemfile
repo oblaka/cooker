@@ -6,6 +6,9 @@ gem 'rails'
 # Use devise for authentication
 gem 'devise'
 
+# Use devise for authentication
+gem 'the_role'
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 

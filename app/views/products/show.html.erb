@@ -3,11 +3,13 @@
 <h2><%= @product.name %></h2>
 
 <ul>
-  <li><%= @product.quantity %> <%= @product.unit %></li>
+  <li><%= @quantity %> (<%= @product.unit %>)</li>
   <li><%= @product.description %></li>
 </ul>
 
-<%= render 'quantity' %>
+<% if signed_in? %>
+  <%= render 'additem' %>
+<% end %>
 
 <%= link_to 'Back to products', products_path, class: 'btn btn-large btn-info', method: :get %>
  |

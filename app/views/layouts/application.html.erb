@@ -52,8 +52,10 @@
               <div class="col-md-8">
                 <p><%= flash_messages %></p>
                 <%= yield %>
+                <%= yield :role_main %>
               </div>
               <div class="col-md-4">
+                <%= yield :role_sidebar %>
                 <br>
                 <div class="well well-lg">
                   <%= render 'shared/devise' %>
