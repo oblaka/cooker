@@ -11,4 +11,12 @@ class User < ActiveRecord::Base
   has_many :roles
   has_many :products, through: :items
 
+  def self.current
+    Thread.current[:user]
+  end
+
+  def self.current=(user)
+    Thread.current[:user] = user
+  end
+
 end

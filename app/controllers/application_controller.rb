@@ -23,4 +23,8 @@ class ApplicationController < ActionController::Base
     render_404
   end
 
+  def set_current_user
+    User.current = current_user
+  end
+
 end
