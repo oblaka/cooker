@@ -1,12 +1,21 @@
-<div class='col-md-6'>
-<p id="notice"><%= notice %></p>
+<div class='col-md-9'>
+  <p id="notice"><%= notice %></p>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2><%= @product.name %></h2>
+    </div>
 
-<h2><%= @product.name %></h2>
-
-<ul>
-  <li><%= @quantity %> (<%= @product.unit %>)</li>
-  <li><%= @product.description %></li>
-</ul>
+    <div class="panel-body">
+      <p><%= @quantity %> (<%= @product.unit %>)</p>
+      <p><%= @product.description %></p>
+      <br>
+      <p>
+        <%= link_to 'Back to products', products_path, class: 'btn btn-large btn-info', method: :get %>
+         или
+        <%= link_to 'Edit', edit_product_path(@product), class: 'btn btn-large btn-warning' %>
+      </p>
+    </div>
+</div>
 
   <% if signed_in? %>
     <% unless @item.nil? %>
@@ -15,10 +24,3 @@
       <%= render 'additem' %>
     <% end %>
   <% end %>
-
-<p>
-  <%= link_to 'Back to products', products_path, class: 'btn btn-large btn-info', method: :get %>
-   |
-   <%= link_to 'Edit', edit_product_path(@product), class: 'btn btn-large btn-warning' %>
- </p>
- </div>

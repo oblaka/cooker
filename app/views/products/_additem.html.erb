@@ -1,7 +1,13 @@
-<h2>Добавить?</h2>
 
-<%= form_for([@product, @product.items.build],
-   layout: :inline) do |f| %>
+<div class="panel panel-info">
+
+  <div class="panel-heading">
+    <h2>Добавить?</h2>
+  </div>
+
+  <div class="panel-body">
+    <%= form_for([@product, @product.items.build],
+        layout: :inline) do |f| %>
 
     <%= f.hidden_field :product_id, value: @product.id %>
 
@@ -9,8 +15,9 @@
       <%= f.text_field :quantity, class: 'form-control'  %>
       <span class="input-group-addon"><%= @product.unit %></span>
     </div>
+
     <br>
     <%= f.submit 'Добавить', class: 'btn btn-success' %> |
     <%= link_to 'Удалить?', @item, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-<% end %>
-<br>
+    <% end %>
+</div>

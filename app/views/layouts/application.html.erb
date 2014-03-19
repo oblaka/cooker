@@ -49,17 +49,17 @@
       <!-- Begin page content -->
       <div class="container">
             <div class="row">
-              <div class="col-md-8">
+              <div class="col-md-6">
                 <p><%= flash_messages %></p>
                 <%= yield %>
                 <%= yield :role_main %>
               </div>
-              <div class="col-md-4">
-                <%= yield :role_sidebar %>
+              <div class="col-md-6">
                 <br>
                 <div class="well well-lg">
                   <%= render 'shared/devise' %>
                 </div>
+                <%= yield :role_sidebar %>
               </div>
             </div>
       </div>
