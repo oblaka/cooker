@@ -16,7 +16,7 @@ class RecipesController < ApplicationController
   end
 
   def produce
-    @count = recipe_count[:count].to_i
+    @count = recipe_count[:pr_form][:count].to_i
     count = @count
     unless @recipe.avaliable < count.to_i
       @recipe.produce(count)
@@ -87,20 +87,12 @@ class RecipesController < ApplicationController
       render_404 unless @recipe
     end
 
-    def set_uid
-      unless current_user.nil?
-        @uid = current_user.id
-      else
-        redirect_to new_user_session_path, alert: "Необходимо войти в систему, чтобы посмотреть узнать подробности"
-      end
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
-      params.require(:recipe).permit(:name, :description, :quantity, :unit, parts: [ :product_id, :quantity] )
+      params.require(:recipe).permit(:name, :description, :quantity, :unit, parts: [:product_id, :quantity] )
     end
 
     def recipe_count
-      params.permit :id, :count
+      params.permit :id, :utf8, :authenticity_token, :commit, pr_form: [:count]
     end
 end
