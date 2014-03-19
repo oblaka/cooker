@@ -1,8 +1,23 @@
 <h2>Add item:</h2>
 <%= bootstrap_form_for([@product, @product.items.build], layout: :inline) do |f| %>
-    
+
     <%= f.hidden_field :product_id, value: @product.id %>
-    <%= f.text_field :quantity, append: @product.unit  %> 
+    <%= f.text_field :quantity, append: @product.unit  %>
+    <%= f.submit "Добавить" %>
+
+<% end %>
+
+<!-- новый вариант additem, не работает -->
+
+<h2>Add item:</h2>
+<%= bootstrap_form_for @product, url: {controller: 'items', action: 'increase'} do |f| %>
+
+    <%= f.hidden_field :product_id, value: @product.id %>
+
+    <%= f.fields_for :items do |i| %>
+      <%= i.text_field :quantity, append: @product.unit  %>
+    <% end %>
+
     <%= f.submit "Добавить" %>
 
 <% end %>

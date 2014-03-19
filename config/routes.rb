@@ -21,6 +21,7 @@ Cooker::Application.routes.draw do
     resources :recipes do
       resources :parts, only: [:new, :create]
       post :produce, on: :member
+      patch :produce, on: :member
     end
 
     resources :parts, only: [:show, :edit, :update, :destroy]

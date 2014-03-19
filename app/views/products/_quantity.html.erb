@@ -1,19 +1,22 @@
-<%= form_tag increase_product_path, method: :post, class: "form-inline"  do %>
-  <div class="form-group">
-    <%= text_field_tag :count %>
-    <%= @product.unit %>
-    <%= submit_tag "Добавить", class: "btn btn-success btn-sm" %>
+
+<div class="panel panel-info">
+
+  <div class="panel-heading">
+    <h3 class="panel-title">Добавить еще?</h3>
   </div>
-<% end %>
 
-<br>
+  <div class="panel-body">
+    <%= form_tag increase_product_path, method: :post do %>
 
-<%= form_tag decrease_product_path, method: :post, :class => "form-inline"  do %>
-  <div class="form-group">
-    <%= text_field_tag :count %>
-    <%= @product.unit %>
-    <%= submit_tag "Убавить", class: "btn btn-warning btn-sm" %>
+    <div class="input-group">
+      <%= text_field_tag :count, nil, class: 'form-control' %>
+      <span class="input-group-addon"><%= @product.unit %></span>
+    </div>
+
+    <br>
+    <%= submit_tag "Добавить", class: 'btn btn-success' %> или
+      <%= link_to 'Удалить?', @item, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+   <% end %>
   </div>
-<% end %>
 
-<br>
+</div>

@@ -27,4 +27,27 @@
   </table>
 
   <%= link_to 'New Item', new_item_path, class: 'btn btn-success' %>
+
+  <h1>Все продукты</h1>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Название</th>
+        <th>Количество</th>
+        <th>Измеряется</th>
+        <th>Владелец</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @all_items.each do |item| %>
+        <tr>
+          <td><%= item.name %></td>
+          <td><%= item.quantity %></td>
+          <td><%= item.unit %></td>
+          <td><%= item.user.id %></td>
+      <% end %>
+    </tbody>
+  </table>
 </div>

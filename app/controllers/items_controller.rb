@@ -1,10 +1,11 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_item, only: [:show, :edit, :update, :destroy, :increase]
 
   # GET /items
   # GET /items.json
   def index
-    unless current_user.nil?
+    @all_items = Item.all #for testing only
+    if signed_in?
       @items = current_user.items
     else
       redirect_to new_user_session_path, alert: "Необходимо войти в систему, чтобы посмотреть Items"
@@ -69,7 +70,7 @@ class ItemsController < ApplicationController
   def destroy
     @item.destroy
     respond_to do |format|
-      format.html { redirect_to items_url }
+      format.html { redirect_to products_url }
       format.json { head :no_content }
     end
   end
