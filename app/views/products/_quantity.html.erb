@@ -1,14 +1,20 @@
-<h2>Добавить еще?</h2>
-<%= bootstrap_form_for @product, url: {controller: 'products', action: 'increase'} do |f| %>
+<div class="panel panel-info">
 
-    <%= f.hidden_field :product_id, value: @product.id %>
+      <div class="panel-heading">
+        <h3 class="panel-title">Добавить еще?</h3>
+      </div>
 
-    <%= f.fields_for :items do |i| %>
-      <%= i.text_field :count, append: @product.unit, hide_label: true  %>
-    <% end %>
+      <div class="panel-body">
+        <%= form_tag increase_product_path, method: :post do %>
 
-    <p> <%= f.submit 'Добавить', class: 'btn btn-success'  %>
-     или
-    <%= link_to 'Удалить?', @item, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></p>
+        <div class="input-group">
+          <%= text_field_tag :count, nil, class: 'form-control' %>
+          <span class="input-group-addon"><%= @product.unit %></span>
+        </div>
+        <br>
+        <%= submit_tag "Добавить", class: 'btn btn-success' %> или
+          <%= link_to 'Удалить?', @item, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+       <% end %>
+      </div>
 
-<% end %>
+</div>

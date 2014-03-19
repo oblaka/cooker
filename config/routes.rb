@@ -14,13 +14,14 @@ Cooker::Application.routes.draw do
 
     resources :products do
       resources :items
-      patch :increase, on: :member
+      post :increase, on: :member
       post :decrease, on: :member
     end
 
     resources :recipes do
       resources :parts, only: [:new, :create]
       post :produce, on: :member
+      patch :produce, on: :member
     end
 
     resources :parts, only: [:show, :edit, :update, :destroy]

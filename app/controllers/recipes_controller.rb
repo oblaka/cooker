@@ -19,11 +19,9 @@ class RecipesController < ApplicationController
     count = recipe_count[:count].to_i
     unless @recipe.avaliable(@uid) < count.to_i
       @recipe.produce(current_user.id, count)
-      flash[:notice] = "Успешно приготовлено!"
-      redirect_to recipe_path(@recipe)
+      redirect_to recipe_path(@recipe), notice: "Успешно приготовлено!"
     else
-      flash[:notice] = "Требуется больше продуктов!"
-      redirect_to recipe_path(@recipe)
+      redirect_to recipe_path(@recipe), alert: 'Требуется больше продуктов!'
     end
   end
 

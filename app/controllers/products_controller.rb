@@ -6,15 +6,6 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     @products = Product.all
-    if signed_in?
-      if current_user.admin?
-        render 'products/admin/index'
-      else
-        render 'products/index'
-      end
-    else
-      render 'index'
-    end
   end
 
   # GET /products/1
@@ -98,7 +89,7 @@ class ProductsController < ApplicationController
     end
 
     def product_count
-      params.require(:product).permit(:product_id, :items => [:count])
+      params.permit(:count)
     end
 
 end
