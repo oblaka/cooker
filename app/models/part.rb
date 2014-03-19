@@ -21,8 +21,8 @@ class Part < ActiveRecord::Base
     recipe.name
   end
 
-  def avaliable(uid)
-    user = User.find_by id: uid
+  def avaliable
+    user = User.current
     self.reload
     item = user.items.where(product_id: self.product.id).first
     if item.nil?
@@ -32,9 +32,8 @@ class Part < ActiveRecord::Base
     end
   end
 
-  def spend(uid, count)
-    user = User.find_by id: uid
-    item = user.items.where(product_id: self.product.id).first
+  def spend(count)
+    item = User.current.items.where(product_id: self.product.id).first
     scount = self.quantity * count
     item.decrease(scount)
   end

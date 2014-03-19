@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy, :produce]
-  before_action :set_uid, only: [:show, :edit, :update, :destroy, :produce]
+  before_filter :set_current_user
 
   # GET /recipes
   # GET /recipes.json
@@ -12,14 +12,15 @@ class RecipesController < ApplicationController
   # GET /recipes/1.json
   def show
     @parts = @recipe.parts
-    @avaliable = @recipe.avaliable(@uid)
+    @avaliable = @recipe.avaliable
   end
 
   def produce
-    count = recipe_count[:count].to_i
-    unless @recipe.avaliable(@uid) < count.to_i
-      @recipe.produce(current_user.id, count)
-      redirect_to recipe_path(@recipe), notice: "Успешно приготовлено!"
+    @count = recipe_count[:count].to_i
+    count = @count
+    unless @recipe.avaliable < count.to_i
+      @recipe.produce(count)
+      redirect_to recipe_path(@recipe), notice: "Успешно приготовлено !"
     else
       redirect_to recipe_path(@recipe), alert: 'Требуется больше продуктов!'
     end
@@ -100,6 +101,6 @@ class RecipesController < ApplicationController
     end
 
     def recipe_count
-      params.permit :utf8, :_method, :authenticity_token, :commit, :id, :count
+      params.permit :id, :count
     end
 end

@@ -8,21 +8,21 @@ class Recipe < ActiveRecord::Base
   validates :quantity, numericality: { greater_than_or_equal_to: 0 }, presence: true
   validates :unit, length: { in: 2..10 }, presence: true
 
-  def avaliable(uid)
+  def avaliable
     self.reload
     pa = []
     self.parts.each do |p|
-      a = p.avaliable(uid)
+      a = p.avaliable
       pa.push a
       p pa
     end
     pa.min.to_i
   end
 
-  def produce(uid, count)
+  def produce(count)
     parts = self.parts
     parts.each do |part|
-      part.spend(uid, count.to_i)
+      part.spend(count.to_i)
     end
 
     prd = Product.find_or_initialize_by(name: self.name, description: self.description, unit: self.unit)
@@ -34,7 +34,7 @@ class Recipe < ActiveRecord::Base
       prd.save
     end
 
-    item = Item.find_or_initialize_by(user_id: uid, product_id: prd.id)
+    item = Item.find_or_initialize_by(user_id: User.current.id, product_id: prd.id)
 
     if item.persisted?
         p "есть немного"

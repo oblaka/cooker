@@ -22,7 +22,7 @@
         <td><%= part.name %></td>
         <td><%= part.quantity %></td>
         <td><%= part.product.unit %></td>
-        <td><%= 'Не хватает!' if part.avaliable(current_user.id) < 1 %></td>
+        <td><%= 'Не хватает!' if part.avaliable < 1 %></td>
       </li>
 
     <% end %>
