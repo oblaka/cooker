@@ -23,9 +23,14 @@ class ProductsController < ApplicationController
 
   def increase
     @item = @product.items.owned.first
-    count = product_count[:count].to_i
-    @item.increase(count)
-    redirect_to @product
+    @ct = CountType.new
+    @ct.count = (product_count[:count]).to_i
+    if @ct.valid?
+      @item.increase(@ct.count)
+      redirect_to @product, success:  'Продукт успешно добавлен'
+    else
+      redirect_to @product, error: 'Введите число больше нуля'
+    end
   end
 
   # GET /products/new
@@ -89,7 +94,7 @@ class ProductsController < ApplicationController
     end
 
     def product_count
-      params.permit(:count)
+      params.require(:CountType).permit(:count)
     end
 
 end

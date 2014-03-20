@@ -1,5 +1,21 @@
-
 <div class="panel panel-info">
+<div class="panel-heading">
+    <h3 class="panel-title">Добавить еще?</h3>
+  </div>
+
+  <div class="panel-body">
+    <%= bootstrap_form_for :CountType, url: increase_product_path do |f| %>
+
+    <%= f.text_field :count, hide_label: true, append: @product.unit %>
+
+    <%= f.submit 'Добавить', class: 'btn btn-success' %> или
+        <%= link_to 'Удалить?', @item, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+
+    <% end %>
+  </div>
+
+
+<!-- <div class="panel panel-info">
 
   <div class="panel-heading">
     <h3 class="panel-title">Добавить еще?</h3>
@@ -19,4 +35,4 @@
    <% end %>
   </div>
 
-</div>
+</div> -->

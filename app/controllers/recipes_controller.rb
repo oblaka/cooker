@@ -16,13 +16,14 @@ class RecipesController < ApplicationController
   end
 
   def produce
-    @count = recipe_count[:pr_form][:count].to_i
-    count = @count
-    unless @recipe.avaliable < count.to_i
+    count = recipe_count[:count].to_i
+    @ra = @recipe.avaliable
+    if (1..@ra) === count && @ra >= count
       @recipe.produce(count)
-      redirect_to recipe_path(@recipe), notice: "Успешно приготовлено !"
-    else
+      redirect_to recipe_path(@recipe), notice: 'Успешно приготовлено!'
+    elsif @ra < count
       redirect_to recipe_path(@recipe), alert: 'Требуется больше продуктов!'
+    else redirect_to recipe_path(@recipe), alert: 'Фарш неводможно провернуть назад!!'
     end
   end
 
@@ -93,6 +94,6 @@ class RecipesController < ApplicationController
     end
 
     def recipe_count
-      params.permit :id, :utf8, :authenticity_token, :commit, pr_form: [:count]
+      params.permit :count
     end
 end
