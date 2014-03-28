@@ -20,40 +20,38 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Cooker</a>
+            <a class="navbar-brand" href="<%= root_path %>">Cooker</a>
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
               <li class="<%= 'active' if params[:controller] == 'items' %>"><%= link_to 'Items', items_path  %></li>
               <li class="<%= 'active' if params[:controller] == 'products' %>"><%= link_to 'Products', products_path  %></li>
               <li class="<%= 'active' if params[:controller] == 'recipes' %>"><%= link_to 'Recipes', recipes_path  %></li>
-
-              <li><a href="admin/roles/"><p>Admin: <% if current_user.admin? %>
-                  да
+              <% if signed_in? %>
+              <li><a href="<%= admin_roles_path %>">Admin: <% if current_user.admin? %>
+                  Roles
                 <% else %>
                  нет
-                <% end %></p></a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                <% end %></a></li>
+              <% end %>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+              <% if signed_in? %>
+                <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Привет, <%= current_user.email %>! <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="#">Action</a></li>
                   <li><a href="#">Another action</a></li>
                   <li><a href="#">Something else here</a></li>
                   <li class="divider"></li>
-                  <li class="dropdown-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
+                  <li><%= link_to 'Выйти', destroy_user_session_path, :method => :delete, class: 'btn btn-xs' %></li>
                 </ul>
-              </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-            <% if user_signed_in? %>
-              <li class="navbar-brand" >Привет, <%= current_user.email %>!</li>
-              <li><button type="submit" class="btn btn-default navbar-btn" ><%= link_to 'Выйти', destroy_user_session_path, :method => :delete, class: 'btn btn-xs' %></button></li>
-            <% else %>
-              <li><button type="submit" class="btn btn-default navbar-btn" ><%= link_to 'Войти', new_user_session_path %></button></li>
-              <li><button type="submit" class="btn btn-default navbar-btn"><%= link_to 'Зарегистрироваться', new_user_registration_path %></button></li>
-            <% end %>
+                </li>
+              <% else %>
+                <li><%= link_to 'Войти', new_user_session_path, class: "btn btn-xs" %></li>
+                <li><button type="submit" class="btn btn-default navbar-btn"><%= link_to 'Зарегистрироваться', new_user_registration_path, class: "btn btn-xs"  %></button></li>
+              <% end %>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -62,12 +60,13 @@
       <!-- Begin page content -->
       <div class="container">
             <div class="row">
-              <div class="col-md-6">
-                <p><%= flash_messages %></p>
                 <%= yield %>
+              <div class='col-md-8'>
+                <p><%= flash_messages %></p>
                 <%= yield :role_main %>
               </div>
-              <div class="col-md-6">
+              <div class='col-md-4'>
+                <br>
                 <%= yield :role_sidebar %>
               </div>
             </div>

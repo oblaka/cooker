@@ -6,6 +6,9 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     @products = Product.all
+    if signed_in?
+      @items_owned = current_user.items
+    end
   end
 
   # GET /products/1
