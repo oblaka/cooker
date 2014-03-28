@@ -97,7 +97,7 @@ class ProductsController < ApplicationController
     end
 
     def product_count
-      params.require(:CountType).permit(:count)
+      params.permit(:count)
     end
 
 end

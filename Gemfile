@@ -8,6 +8,7 @@ gem 'devise'
 
 # Use devise for authentication
 gem 'the_role'
+gem 'the_role_bootstrap3_ui'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
