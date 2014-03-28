@@ -17,7 +17,7 @@ gem 'sass-rails', '~> 4.0.0'
 gem 'bootstrap-sass'
 
 # Use bootstrap form
-gem 'bootstrap_form'
+gem 'bootstrap_form', git: 'https://github.com/bootstrap-ruby/rails-bootstrap-forms.git'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
